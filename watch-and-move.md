@@ -1,3 +1,4 @@
+## Watch
 html
 ```html
 <div id="blocker">
@@ -133,4 +134,43 @@ js
     }
 
 </script>
+```
+## Jump
+初识变量
+```
+let canJump = true;                     // 是否可以跳跃
+const velocity = new THREE.Vector3();   // 速度
+```
+按下空格键
+```
+const onKeyDown = function ( event ) {
+    switch ( event.keyCode ) {
+	    case 32: // space
+            if ( canJump === true ) {
+                velocity.y += 2;
+            }
+            canJump = false;
+            break;
+    }
+};
+document.addEventListener( 'keydown', onKeyDown, false );
+```
+动画过程
+```
+let prevTime = performance.now();
+function animate() {
+    const time = performance.now();
+    if ( controls.isLocked === true ) {
+        const delta = ( time - prevTime ) / 1000;
+        velocity.y -= 9.8 * delta;
+        if ( controls.getObject().position.y < 0 ) {
+            velocity.y = 0;
+            controls.getObject().position.y = 0;
+            canJump = true;
+        } else {
+            controls.getObject().position.y += ( velocity.y * delta );
+        }
+    }
+    prevTime = time;
+}
 ```
