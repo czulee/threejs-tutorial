@@ -137,12 +137,12 @@ js
 ```
 ## Jump
 初识变量
-```
+```js
 let canJump = true;                     // 是否可以跳跃
 const velocity = new THREE.Vector3();   // 速度
 ```
 按下空格键
-```
+```js
 const onKeyDown = function ( event ) {
     switch ( event.keyCode ) {
 	    case 32: // space
@@ -156,7 +156,7 @@ const onKeyDown = function ( event ) {
 document.addEventListener( 'keydown', onKeyDown, false );
 ```
 动画过程
-```
+```js
 let prevTime = performance.now();
 function animate() {
     const time = performance.now();
