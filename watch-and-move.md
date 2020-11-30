@@ -174,3 +174,87 @@ function animate() {
     prevTime = time;
 }
 ```
+## Move
+初始变量
+```js
+let moveForward = false;
+let moveBackward = false;
+let moveLeft = false;
+let moveRight = false;
+const direction = new THREE.Vector3();
+```
+按下方向键
+```js
+const onKeyDown = function (event) {
+    switch (event.keyCode) {
+
+        case 38: // up
+        case 87: // w
+            moveForward = true;
+            break;
+
+        case 37: // left
+        case 65: // a
+            moveLeft = true;
+            break;
+
+        case 40: // down
+        case 83: // s
+            moveBackward = true;
+            break;
+
+        case 39: // right
+        case 68: // d
+            moveRight = true;
+            break;
+    }
+};
+
+const onKeyUp = function (event) {
+    switch (event.keyCode) {
+
+        case 38: // up
+        case 87: // w
+            moveForward = false;
+            break;
+
+        case 37: // left
+        case 65: // a
+            moveLeft = false;
+            break;
+
+        case 40: // down
+        case 83: // s
+            moveBackward = false;
+            break;
+
+        case 39: // right
+        case 68: // d
+            moveRight = false;
+            break;
+    }
+};
+```
+动画过程
+```js
+// 判断移动方向
+// 1: right		-1: left
+direction.x = Number(moveRight) - Number(moveLeft);
+// 1: forward	-1: back
+direction.z = Number(moveForward) - Number(moveBackward);
+direction.normalize();
+// 是否左右移动
+if (moveLeft || moveRight)  {
+    velocity.x -= 3 * direction.x * delta;
+} else {
+    velocity.x -= velocity.x * 10.0 * delta;
+}
+// 是否前后移动
+if (moveForward || moveBackward) {
+    velocity.z -= 3 * direction.z * delta;
+} else {
+    velocity.z -= velocity.z * 10.0 * delta;
+}
+controls.moveRight(- velocity.x * delta);
+controls.moveForward(- velocity.z * delta);
+```
