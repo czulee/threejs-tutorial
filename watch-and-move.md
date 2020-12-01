@@ -238,9 +238,9 @@ const onKeyUp = function (event) {
 动画过程
 ```js
 // 判断移动方向
-// 1: right		-1: left
+// 1: right     -1: left
 direction.x = Number(moveRight) - Number(moveLeft);
-// 1: forward	-1: back
+// 1: forward   -1: back
 direction.z = Number(moveForward) - Number(moveBackward);
 direction.normalize();
 // 是否左右移动
