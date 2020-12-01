@@ -245,15 +245,27 @@ direction.z = Number(moveForward) - Number(moveBackward);
 direction.normalize();
 // 是否左右移动
 if (moveLeft || moveRight)  {
-    velocity.x -= 3 * direction.x * delta;
+    // 加速
+    velocity.x -= direction.x * delta;
 } else {
-    velocity.x -= velocity.x * 10.0 * delta;
+    // 降速
+    if (Math.abs(velocity.x) > 0.0001) {
+        velocity.x -= velocity.x * 10.0 * delta;
+    } else {
+        velocity.x = 0;
+    }
 }
 // 是否前后移动
 if (moveForward || moveBackward) {
-    velocity.z -= 3 * direction.z * delta;
+    // 加速
+    velocity.z -= direction.z * delta;
 } else {
-    velocity.z -= velocity.z * 10.0 * delta;
+    // 降速
+    if (Math.abs(velocity.z) > 0.0001) {
+        velocity.z -= velocity.z * 10.0 * delta;
+    } else {
+        velocity.z = 0;
+    }
 }
 controls.moveRight(- velocity.x * delta);
 controls.moveForward(- velocity.z * delta);
